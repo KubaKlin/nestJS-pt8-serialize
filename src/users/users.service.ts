@@ -7,6 +7,7 @@ import { PrismaError } from '../database/prisma-error.enum';
 import { Prisma } from '../../generated/prisma';
 import { PrismaService } from '../database/prisma.service';
 import { UserDto } from './user.dto';
+import { UpdatePhoneNumberDto } from './update-phone-number.dto';
 
 @Injectable()
 export class UsersService {
@@ -52,5 +53,21 @@ export class UsersService {
       }
       throw error;
     }
+  }
+
+  async updatePhoneNumber(
+    userId: number,
+    updatePhoneNumberDto: UpdatePhoneNumberDto,
+  ) {
+    await this.getById(userId);
+
+    return await this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        phoneNumber: updatePhoneNumberDto.phoneNumber,
+      },
+    });
   }
 }
