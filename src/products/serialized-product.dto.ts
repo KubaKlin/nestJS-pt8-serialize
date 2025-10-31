@@ -5,16 +5,17 @@ export class SerializedProductDto implements Product {
   id: number;
 
   @Transform(({ value: name }) => {
-    if (name.length > 6) {
-      return name.substring(0, 6) + '...';
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+    if (capitalizedName.length > 6) {
+      return capitalizedName.substring(0, 6) + '...';
     }
-    return name;
+    return capitalizedName;
   })
   name: string;
 
   @Expose()
   @Transform(({ obj }) => {
-    return obj.name?.length || 0;
+    return obj.name.length;
   })
   textLength: number;
 
