@@ -15,6 +15,8 @@ import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
 import { JwtAuthenticationGuard } from '../authentication/jwt-authentication.guard';
 import type { RequestWithUser } from '../authentication/request-with-user';
+import { TransformPlainToInstance } from 'class-transformer';
+import { SerializedProductDto } from './serialized-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -27,6 +29,7 @@ export class ProductsController {
   }
 
   @Get()
+  @TransformPlainToInstance(SerializedProductDto)
   getAll() {
     return this.productsService.getAll();
   }
