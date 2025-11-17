@@ -59,8 +59,6 @@ export class UsersService {
     userId: number,
     updatePhoneNumberDto: UpdatePhoneNumberDto,
   ) {
-    await this.getById(userId);
-
     return await this.prismaService.user.update({
       where: {
         id: userId,
