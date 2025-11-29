@@ -15,6 +15,9 @@ import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
 import { JwtAuthenticationGuard } from '../authentication/jwt-authentication.guard';
 import type { RequestWithUser } from '../authentication/request-with-user';
+import { TransformPlainToInstance } from 'class-transformer';
+import { SerializedProductDto } from './serialized-product.dto';
+import { SimpleSerializedProductDto } from './simple-serialized-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -27,11 +30,13 @@ export class ProductsController {
   }
 
   @Get()
+  @TransformPlainToInstance(SerializedProductDto)
   getAll() {
     return this.productsService.getAll();
   }
 
   @Get(':id')
+  @TransformPlainToInstance(SimpleSerializedProductDto)
   getById(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.getById(id);
   }

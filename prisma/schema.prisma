@@ -22,8 +22,9 @@ model Product {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  name     String
-  password String
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  name        String
+  password    String
+  phoneNumber String?
 }
